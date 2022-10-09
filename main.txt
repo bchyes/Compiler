@@ -1,0 +1,88 @@
+//import gen.MxParser;
+//import gen.MxLexer;
+//import hello.HelloParser;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.Token;
+
+public class Main{
+    public static void run(String expr) throws Exception{
+        ANTLRInputStream input = new ANTLRInputStream(expr);
+        MxLexer lexer = new MxLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        MxParser parser = new MxParser(tokens);
+        parser.program();
+    }
+    public static void main(String[] args) throws Exception{
+        /*String[] testStr={
+                "Hello world",
+                "hello world",
+                "hi world"
+        };*/
+//        String[] testStr={
+//                "/*\n" +
+//                        "Test Package: Sema_Local_Preview\n" +
+//                        "Test Target: Basic\n" +
+//                        "Author: 14' Tiancheng Xie\n" +
+//                        "Time: 2019-10-20\n" +
+//                        "Verdict: Success\n" +
+//                        "Origin Package: Semantic Pretest\n" +
+//                        "*/\n" +
+//                        "\n" +
+//                        "//This is the most basic test.\n" +
+//                        "//基本测试，注释是中文应该要能搞吧\n" +
+//                        "\n" +
+//                        "int main()\n" +
+//                        "{\n" +
+//                        "\tint[][] array = new int[3][3];\n" +
+//                        "\tarray[0] = null;\n" +
+//                        "\tprintln(toString(array[0].size()));\n" +
+//                        "\tarray[0] = new int[10];\n" +
+//                        "    int i;\n" +
+//                        "\tfor(i = 0; i < 10; ++i)\n" +
+//                        "\t\tarray[0][i] = i * i; //\n" +
+//                        "\tprintln(toString(array[0][9]));\n" +
+//                        "\twhile(true)\n" +
+//                        "\t{\n" +
+//                        "\t\tbreak;\n" +
+//                        "\t\tcontinue;\n" +
+//                        "\t}\n" +
+//                        "\n" +
+//                        "\treturn 0;\n" +
+//                        "}\n"
+//        };
+        /*for (String s :testStr){
+            System.out.println("Input: " + s);
+            run(s);
+        }*/
+        Token tk=new CommonToken(123,"   112441414314\n11313123\n21314141");
+        System.out.println(tk.getCharPositionInLine());
+        System.out.println(tk.getLine());
+        System.out.println(tk.getChannel());
+    }
+}
+/*import hello.HelloParser;
+import hello.HelloLexer;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+public class Main{
+    public static void run(String expr) throws Exception{
+        ANTLRInputStream input = new ANTLRInputStream(expr);
+        HelloLexer lexer = new HelloLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        HelloParser parser = new HelloParser(tokens);
+        parser.r();
+    }
+    public static void main(String[] args) throws Exception{
+        String[] testStr={
+                "Hello world",
+                "hello world",
+                "hi world"
+        };
+        for (String s :testStr){
+            System.out.println("Input: " + s);
+            run(s);
+        }
+    }
+}*/

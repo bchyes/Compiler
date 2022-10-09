@@ -1,24 +1,34 @@
-import hello.HelloParser;
-import hello.HelloLexer;
-import org.antlr.v4.runtime.ANTLRInputStream;
+import AST.ASTBuilder;
+import AST.RootNode;
+import Parser.MxLexer;
+import Parser.MxParser;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-public class Main{
-    public static void run(String expr) throws Exception{
-        ANTLRInputStream input = new ANTLRInputStream(expr);
-        HelloLexer lexer = new HelloLexer(input);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        HelloParser parser = new HelloParser(tokens);
-        parser.r();
-    }
-    public static void main(String[] args) throws Exception{
-        String[] testStr={
-                "Hello world",
-                "hello world",
-                "hi world"
-        };
-        for (String s :testStr){
-            System.out.println("Input: " + s);
-            run(s);
-        }
+import org.antlr.v4.runtime.tree.ParseTree;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        String name = "basic-1.mx";
+        InputStream input = new FileInputStream(name);
+        //InputStream input = System.in;
+        PrintStream output = System.out;
+        //try {
+        MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
+            /*lexer.removeErrorListeners();
+            lexer.addErrorListener(new MxErrorListerner());*/
+        MxParser parser = new MxParser(new CommonTokenStream(lexer));
+            /*parser.removeErrorListeners();
+            parser.addErrorListener(new MxErrorListerner());*/
+        ParseTree parseTreeRoot = parser.program();
+
+        ASTBuilder test = new ASTBuilder();
+        RootNode rt = (RootNode) test.visit(parseTreeRoot);
+        System.out.println(rt);
+        //}
     }
 }
