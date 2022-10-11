@@ -1,8 +1,10 @@
 package AST;
 
-public class ExprNode extends ASTNode {
+public abstract class ExprNode extends ASTNode {
+    //public TypeNode exprType;
 
     public ExprNode(Position pos_) {
         super(pos_);
+        //this.exprType = exprType_;
     }
 }

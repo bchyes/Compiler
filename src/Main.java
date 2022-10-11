@@ -17,18 +17,22 @@ public class Main {
         InputStream input = new FileInputStream(name);
         //InputStream input = System.in;
         PrintStream output = System.out;
-        //try {
-        MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
+        try {
+            MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
             /*lexer.removeErrorListeners();
             lexer.addErrorListener(new MxErrorListerner());*/
-        MxParser parser = new MxParser(new CommonTokenStream(lexer));
+            MxParser parser = new MxParser(new CommonTokenStream(lexer));
             /*parser.removeErrorListeners();
             parser.addErrorListener(new MxErrorListerner());*/
-        ParseTree parseTreeRoot = parser.program();
+            ParseTree parseTreeRoot = parser.program();
 
-        ASTBuilder test = new ASTBuilder();
-        RootNode rt = (RootNode) test.visit(parseTreeRoot);
-        System.out.println(rt);
-        //}
+            ASTBuilder test = new ASTBuilder();
+            RootNode rt = (RootNode) test.visit(parseTreeRoot);
+            //System.out.println(rt);
+
+        } catch (RuntimeException er) {
+            System.err.println(er.getMessage());
+            throw new RuntimeException();
+        }
     }
 }

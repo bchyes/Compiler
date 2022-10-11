@@ -1,7 +1,10 @@
 package AST;
 
 public class TypeNode extends ASTNode {
-    public TypeNode(Position pos_) {
+    public String Type;
+
+    public TypeNode(String Type_, Position pos_) {
         super(pos_);
+        this.Type = Type_;
     }
 }
