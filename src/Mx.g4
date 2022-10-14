@@ -31,23 +31,28 @@ expression://((ID('['(INT|ID)']')*('.'ID('('(parameterforcall)?')'))?)|INT) (OPE
           |NEW allocFormat                                                           #allocExpr
           |expression '(' (parameterforcall)? ')'                                    #funcCall
           |'('expression')'                                                          #compoundExpr
-          |<assoc=right>operand1=expression op='=' operand2=expression               #binaryExpr
-          |operand=expression op=('++'|'--')                                         #aftermonocularOp
-          |<assoc=right> op=('++'|'--'|'-'|'!'|'~'|'+') operand=expression           #monocularOp
-          |operand1=expression op=('+'|'-'|'*'|'/'|'%') operand2=expression          #binaryExpr
-          |operand1=expression op=('>>'|'<<') operand2=expression                    #binaryExpr
-          |operand1=expression op=('&&'|'||') operand2=expression                    #binaryExpr
-          |operand1=expression op=('&'|'|'|'^') operand2=expression                  #binaryExpr
-          |operand1=expression op=('>'|'<'|'>='|'<='|'=='|'!=') operand2=expression  #binaryExpr
           |array=expression '['index=expression']'                                   #arrayAccess
+          |operand=expression op=('++'|'--')                                         #aftermonocularOp
+          |<assoc=right> op=('++'|'--'|'!'|'~') operand=expression                   #monocularOp
+          |operand1=expression op=('*'|'/'|'%') operand2=expression                  #binaryExpr
+          |operand1=expression op=('+'|'-') operand2=expression                      #binaryExpr
+          |<assoc=right> op=('-'|'+') operand=expression                             #monocularOp
+          |operand1=expression op=('>>'|'<<') operand2=expression                    #binaryExpr
+          |operand1=expression op=('>'|'<'|'>='|'<='|'=='|'!=') operand2=expression  #binaryExpr
+          |operand1=expression op='&' operand2=expression                            #binaryExpr
+          |operand1=expression op='^' operand2=expression                            #binaryExpr
+          |operand1=expression op='|' operand2=expression                            #binaryExpr
+          |operand1=expression op='&&' operand2=expression                           #binaryExpr
+          |operand1=expression op='||' operand2=expression                           #binaryExpr
+          |<assoc=right>operand1=expression op='=' operand2=expression               #binaryExpr
           |'this'                                                                    #objPointer
           |'['('&')?']' lambdaparameter? '->' block '('parameterforcall?')'          #lambdaExpr
           ;
 //functionuse:ID'('(functionuse|parameterforcall)?')';
 //functionuse:'print('expression')'|'println('expression')'|'printInt('expression')'|'printlnInt('expression')'|'getString('expression')'|'getInt('expression')'|'toString('expression')';
 //KEYWORD:'new'|'class'|'null'|'this'|'if'|'else'|'for'|'while'|'break'|'continue'|'return';
-allocFormat:(BOOL|INT|STRING|ID) ('[' (expression)? ']')*  ('[' ']')+ ('[' (expression)? ']')+  #allocErrorFormat
-           |base=(BOOL|INT|STRING|ID) ('[' (expression)? ']')+  ('[' ']')+                      #allocArrayFormat
+allocFormat:(BOOL|INT|STRING|ID) ('[' expression ']')+  ('[' ']')+ ('[' expression ']')+        #allocErrorFormat
+           |base=(BOOL|INT|STRING|ID) ('[' expression ']')*  ('[' ']')*                         #allocArrayFormat
            |base=(BOOL|INT|STRING|ID) ('(' ')')?                                                #allocBaseFormat
            ;
 parameterforcall:expression(','expression)*;

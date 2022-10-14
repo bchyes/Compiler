@@ -47,7 +47,7 @@ public class Compiler {
 
             //System.out.println("Semantic Run Success");
         } catch (SemanticError er) {
-            //System.err.println(er.getMessage());
+            System.err.println(er.getMessage());
             throw new RuntimeException();
         }
     }
