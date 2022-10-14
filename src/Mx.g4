@@ -51,8 +51,8 @@ expression://((ID('['(INT|ID)']')*('.'ID('('(parameterforcall)?')'))?)|INT) (OPE
 //functionuse:ID'('(functionuse|parameterforcall)?')';
 //functionuse:'print('expression')'|'println('expression')'|'printInt('expression')'|'printlnInt('expression')'|'getString('expression')'|'getInt('expression')'|'toString('expression')';
 //KEYWORD:'new'|'class'|'null'|'this'|'if'|'else'|'for'|'while'|'break'|'continue'|'return';
-allocFormat:(BOOL|INT|STRING|ID) ('[' expression ']')+  ('[' ']')+ ('[' expression ']')+        #allocErrorFormat
-           |base=(BOOL|INT|STRING|ID) ('[' expression ']')*  ('[' ']')*                         #allocArrayFormat
+allocFormat:(BOOL|INT|STRING|ID) ('[' expression ']')*  ('[' ']')+ ('[' expression ']')+        #allocErrorFormat
+           |base=(BOOL|INT|STRING|ID) ('[' expression ']')+  ('[' ']')*                         #allocArrayFormat
            |base=(BOOL|INT|STRING|ID) ('(' ')')?                                                #allocBaseFormat
            ;
 parameterforcall:expression(','expression)*;

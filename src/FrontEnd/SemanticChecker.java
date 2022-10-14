@@ -35,11 +35,11 @@ public class SemanticChecker implements ASTVisitor {
 
     public void visit(RootNode node) {
         node.elements.forEach(tmp -> {
-            if (tmp instanceof ClassDefNode || tmp instanceof VarDefStmtNode)
+            if (tmp instanceof ClassDefNode)
                 tmp.accept(this);
         });
         node.elements.forEach(tmp -> {
-            if (tmp instanceof FuncDefNode)
+            if (tmp instanceof FuncDefNode || tmp instanceof VarDefStmtNode)
                 tmp.accept(this);
         });
     }
