@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 public class ForStmtNode extends StmtNode {
     public StmtNode init;
     public ExprNode condition;
@@ -12,5 +12,10 @@ public class ForStmtNode extends StmtNode {
         this.condition = condition_;
         this.incr = incr_;
         this.loopBody = loopBody_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

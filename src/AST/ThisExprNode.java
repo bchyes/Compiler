@@ -2,12 +2,10 @@ package AST;
 
 import Utils.Position;
 
-public class TypeNode extends ASTNode {
-    public String Type;
+public class ThisExprNode extends ExprNode {
 
-    public TypeNode(String Type_, Position pos_) {
+    public ThisExprNode(Position pos_) {
         super(pos_);
-        this.Type = Type_;
     }
 
     @Override

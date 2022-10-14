@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 public class MonocularExprNode extends ExprNode {
     public enum Op {LNOT, BITNOT, PREINC, PREDEC, AFTINC, AFTDEC, POS, NEG}
 
@@ -10,5 +10,10 @@ public class MonocularExprNode extends ExprNode {
         super(pos_);
         this.operator = operator_;
         this.operand = operand_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

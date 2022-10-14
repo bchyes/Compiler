@@ -1,7 +1,7 @@
 package AST;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-
+import Utils.Position;
 public abstract class ASTNode {
     private Position pos;
 
@@ -13,6 +13,6 @@ public abstract class ASTNode {
         return this.pos;
     }
 
-    //abstract public void accept(ASTVisitor visitor);
+    abstract public void accept(ASTVisitor visitor);
 }
 

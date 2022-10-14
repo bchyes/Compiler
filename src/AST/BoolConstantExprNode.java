@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 import Parser.MxParser;
 
 public class BoolConstantExprNode extends ExprNode {
@@ -10,5 +10,10 @@ public class BoolConstantExprNode extends ExprNode {
         super(pos_);
         this.value = value_;
         this.Expr = new TypeNode("bool", pos_);
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

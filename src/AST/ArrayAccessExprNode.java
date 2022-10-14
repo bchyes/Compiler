@@ -1,5 +1,7 @@
 package AST;
 
+import Utils.Position;
+
 public class ArrayAccessExprNode extends ExprNode {
     public ExprNode array;
     public ExprNode index;
@@ -8,5 +10,10 @@ public class ArrayAccessExprNode extends ExprNode {
         super(pos_);
         this.array = array_;
         this.index = index_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

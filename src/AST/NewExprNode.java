@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 import java.util.ArrayList;
 
 public class NewExprNode extends ExprNode {
@@ -12,5 +12,10 @@ public class NewExprNode extends ExprNode {
         this.newType = newType_;
         this.dimension = dimension_;
         this.SizeList = SizeList_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

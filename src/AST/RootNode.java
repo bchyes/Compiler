@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 import java.util.ArrayList;
 
 public class RootNode extends ASTNode {
@@ -10,8 +10,8 @@ public class RootNode extends ASTNode {
         this.elements = _ele;
     }
 
-    /*@Override
+    @Override
     public void accept(ASTVisitor visitor) {
         visitor.visit(this);
-    }*/
+    }
 }

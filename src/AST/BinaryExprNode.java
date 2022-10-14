@@ -1,7 +1,7 @@
 package AST;
 
 import Parser.MxParser;
-
+import Utils.Position;
 public class BinaryExprNode extends ExprNode {
     public enum Op {ADD, SUB, MUL, DIV, MOD, SHL, SHR, GT, LT, GE, LE, EQ, NE, AND, XOR, OR, LAND, LOR, ASSIGN}
 
@@ -13,5 +13,10 @@ public class BinaryExprNode extends ExprNode {
         this.operator = operator_;
         this.LOperand = LOperand_;
         this.ROperand = ROperand_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

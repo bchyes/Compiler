@@ -1,11 +1,13 @@
 package AST;
+
 import Utils.Position;
-public class StringConstantExprNode extends ExprNode {
+
+public class VoidConstantExprNode extends ExprNode {
     public TypeNode expr;
 
-    public StringConstantExprNode(Position pos_) {
+    public VoidConstantExprNode(Position pos_) {
         super(pos_);
-        this.expr = new TypeNode("string", pos_);
+        this.expr = new TypeNode("void", pos_);
     }
 
     @Override

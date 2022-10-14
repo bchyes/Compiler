@@ -165,12 +165,26 @@ public interface MxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMonocularOp(MxParser.MonocularOpContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code objPointer}
+	 * labeled alternative in {@link MxParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjPointer(MxParser.ObjPointerContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code binaryExpr}
 	 * labeled alternative in {@link MxParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBinaryExpr(MxParser.BinaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcCall}
+	 * labeled alternative in {@link MxParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCall(MxParser.FuncCallContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code arrayAccess}
 	 * labeled alternative in {@link MxParser#expression}.
@@ -179,12 +193,26 @@ public interface MxVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayAccess(MxParser.ArrayAccessContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code funcCall}
-	 * labeled alternative in {@link MxParser#expression}.
+	 * Visit a parse tree produced by the {@code allocErrorFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFuncCall(MxParser.FuncCallContext ctx);
+	T visitAllocErrorFormat(MxParser.AllocErrorFormatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code allocArrayFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAllocArrayFormat(MxParser.AllocArrayFormatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code allocBaseFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAllocBaseFormat(MxParser.AllocBaseFormatContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MxParser#parameterforcall}.
 	 * @param ctx the parse tree

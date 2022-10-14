@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 import java.util.ArrayList;
 
 public class FuncCallExprNode extends ExprNode {
@@ -10,5 +10,10 @@ public class FuncCallExprNode extends ExprNode {
         super(pos_);
         this.Func = Func_;
         this.List = List_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

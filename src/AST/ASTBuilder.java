@@ -2,6 +2,8 @@ package AST;
 
 import Parser.MxBaseVisitor;
 import Parser.MxParser;
+import Utils.Position;
+import Utils.SemanticError;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
@@ -45,10 +47,14 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
         } else if (ctx.NULL() != null) {
             return new NullConstantExprNode(new Position(ctx));
         } else if (ctx.INT_C() != null) {
-            return new IntConstantExprNode(new Position(ctx));
+            return new IntConstantExprNode(Integer.parseInt(ctx.INT_C().getText()), new Position(ctx));
         } else if (ctx.STRING_C() != null) {
             return new StringConstantExprNode(new Position(ctx));
         } else return null;
+    }
+
+    public ASTNode visitObjPointer(MxParser.ObjPointerContext ctx) {
+        return new ThisExprNode(new Position(ctx));
     }
 
     public ASTNode visitCompoundExpr(MxParser.CompoundExprContext ctx) {
@@ -113,10 +119,22 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
     }
 
     public ASTNode visitAllocExpr(MxParser.AllocExprContext ctx) {
+        return visit(ctx.allocFormat());
+    }
+
+    public ASTNode visitAllocErrorFormat(MxParser.AllocErrorFormatContext ctx) {
+        throw new SemanticError("Wrong Syntax for array create", new Position(ctx));
+    }
+
+    public ASTNode visitAllocArrayFormat(MxParser.AllocArrayFormatContext ctx) {
         ArrayList<ExprNode> arraySize = new ArrayList<ExprNode>();
         ctx.expression().forEach(tmp -> arraySize.add((ExprNode) visit(tmp)));
-        int dimension = (ctx.getChildCount() - arraySize.size() - 2) / 2;
-        return new NewExprNode((TypeNode) visit(ctx.vartype()), dimension, arraySize, new Position(ctx));
+        int dimension = (ctx.getChildCount() - arraySize.size() - 1) / 2;
+        return new NewExprNode(new TypeNode(ctx.base.getText(),new Position(ctx)), dimension, arraySize, new Position(ctx));
+    }
+
+    public ASTNode visitAllocBaseFormat(MxParser.AllocBaseFormatContext ctx) {
+        return new NewExprNode(new TypeNode(ctx.base.getText(),new Position(ctx)), 0, null, new Position(ctx));
     }
 
     public ASTNode visitObjPortion(MxParser.ObjPortionContext ctx) {
@@ -231,7 +249,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
         String funcName = ctx.ID().getText();
         BlockStmtNode funcBody = (BlockStmtNode) visit(ctx.block());
         if (ctx.parameter() == null) {
-            return new FuncDefNode(new Position(ctx), funcType, funcName, null, funcBody);
+            return new FuncDefNode(funcType, funcName, null, funcBody, new Position(ctx));
         } else {
             List<MxParser.VartypeContext> vtl = ctx.parameter().vartype();
             List<TerminalNode> vil = ctx.parameter().ID();
@@ -239,16 +257,16 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
             for (int i = 0; i < vtl.size(); i++) {
                 parameter.add(new VarDefNode((TypeNode) visit(vtl.get(i)), vil.get(i).getText(), null, new Position(vtl.get(i))));
             }
-            return new FuncDefNode(new Position(ctx), funcType, funcName, parameter, funcBody);
+            return new FuncDefNode(funcType, funcName, parameter, funcBody, new Position(ctx));
         }
     }
 
     public ASTNode visitClassdef(MxParser.ClassdefContext ctx) {
         String className = ctx.ID().getText();
-        ArrayList<VarDefNode> vardef = new ArrayList<VarDefNode>();
+        ArrayList<VarDefStmtNode> vardef = new ArrayList<VarDefStmtNode>();
         ArrayList<FuncDefNode> funcdef = new ArrayList<FuncDefNode>();
         if (ctx.variabledef() != null) {
-            ctx.variabledef().forEach(tmp -> vardef.add((VarDefNode) visit(tmp)));
+            ctx.variabledef().forEach(tmp -> vardef.add((VarDefStmtNode) visit(tmp)));
         }
         if (ctx.functiondef() != null) {
             ctx.functiondef().forEach(tmp -> funcdef.add((FuncDefNode) visit(tmp)));

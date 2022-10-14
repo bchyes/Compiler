@@ -1,9 +1,9 @@
 grammar Mx;
 program:subprogram*;
-subprogram:functiondef|classdef|variabledef;
+subprogram:functiondef|classdef|variabledef ';';
 functiondef:(functype)? ID '(' parameter? ')' block;
-classdef:'class' ID '{'(variabledef|functiondef)*'}' ';';
-variabledef:vartype ('['']')* (baseVarDef) (',' baseVarDef)*;
+classdef:'class' ID '{'(variabledef ';'|functiondef)*'}' ';';
+variabledef:vartype (baseVarDef) (',' baseVarDef)* ;
 block:'{'stmt*'}';
 stmt:block                                                                                                                   #innerBlock
     |variabledef ';'                                                                                                         #vardefStmt
@@ -25,9 +25,11 @@ jumpStmt:BREAK ';'
 //                |   vartype ('(' ')')?                                             #allocBaseType
 //                ;
 expression://((ID('['(INT|ID)']')*('.'ID('('(parameterforcall)?')'))?)|INT) (OPEATOR expression)?|
-           NEW vartype ('[' (expression)? ']')*                                      #allocExpr
-          |ID                                                                        #identifier
+          ID                                                                         #identifier
           |(True|False|INT_C|NULL|STRING_C)                                          #constant
+          |expression '.' ('('ID')' | ID)                                            #objPortion
+          |NEW allocFormat                                                           #allocExpr
+          |expression '(' (parameterforcall)? ')'                                    #funcCall
           |'('expression')'                                                          #compoundExpr
           |<assoc=right>operand1=expression op='=' operand2=expression               #binaryExpr
           |operand=expression op=('++'|'--')                                         #aftermonocularOp
@@ -38,13 +40,16 @@ expression://((ID('['(INT|ID)']')*('.'ID('('(parameterforcall)?')'))?)|INT) (OPE
           |operand1=expression op=('&'|'|'|'^') operand2=expression                  #binaryExpr
           |operand1=expression op=('>'|'<'|'>='|'<='|'=='|'!=') operand2=expression  #binaryExpr
           |array=expression '['index=expression']'                                   #arrayAccess
-          |expression '.' ID                                                         #objPortion
-          |expression '(' (parameterforcall)? ')'                                    #funcCall
+          |'this'                                                                    #objPointer
           |'['('&')?']' lambdaparameter? '->' block '('parameterforcall?')'          #lambdaExpr
           ;
 //functionuse:ID'('(functionuse|parameterforcall)?')';
 //functionuse:'print('expression')'|'println('expression')'|'printInt('expression')'|'printlnInt('expression')'|'getString('expression')'|'getInt('expression')'|'toString('expression')';
 //KEYWORD:'new'|'class'|'null'|'this'|'if'|'else'|'for'|'while'|'break'|'continue'|'return';
+allocFormat:(BOOL|INT|STRING|ID) ('[' (expression)? ']')*  ('[' ']')+ ('[' (expression)? ']')+  #allocErrorFormat
+           |base=(BOOL|INT|STRING|ID) ('[' (expression)? ']')+  ('[' ']')+                      #allocArrayFormat
+           |base=(BOOL|INT|STRING|ID) ('(' ')')?                                                #allocBaseFormat
+           ;
 parameterforcall:expression(','expression)*;
 parameter:vartype ID (',' vartype ID)*;
 vartype:(BOOL|INT|STRING|ID) #baseType

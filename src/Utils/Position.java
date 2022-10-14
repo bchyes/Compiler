@@ -1,4 +1,4 @@
-package AST;
+package Utils;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;

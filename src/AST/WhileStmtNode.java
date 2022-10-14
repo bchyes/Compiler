@@ -1,5 +1,5 @@
 package AST;
-
+import Utils.Position;
 public class WhileStmtNode extends StmtNode {
     public ExprNode condition;
     public StmtNode loopBody;
@@ -8,5 +8,10 @@ public class WhileStmtNode extends StmtNode {
         super(pos_);
         this.condition = condition_;
         this.loopBody = loopBody_;
+    }
+
+    @Override
+    public void accept(ASTVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -270,6 +270,18 @@ public interface MxListener extends ParseTreeListener {
 	 */
 	void exitMonocularOp(MxParser.MonocularOpContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code objPointer}
+	 * labeled alternative in {@link MxParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterObjPointer(MxParser.ObjPointerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code objPointer}
+	 * labeled alternative in {@link MxParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitObjPointer(MxParser.ObjPointerContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code binaryExpr}
 	 * labeled alternative in {@link MxParser#expression}.
 	 * @param ctx the parse tree
@@ -281,6 +293,18 @@ public interface MxListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBinaryExpr(MxParser.BinaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcCall}
+	 * labeled alternative in {@link MxParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCall(MxParser.FuncCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcCall}
+	 * labeled alternative in {@link MxParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCall(MxParser.FuncCallContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code arrayAccess}
 	 * labeled alternative in {@link MxParser#expression}.
@@ -294,17 +318,41 @@ public interface MxListener extends ParseTreeListener {
 	 */
 	void exitArrayAccess(MxParser.ArrayAccessContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code funcCall}
-	 * labeled alternative in {@link MxParser#expression}.
+	 * Enter a parse tree produced by the {@code allocErrorFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
 	 * @param ctx the parse tree
 	 */
-	void enterFuncCall(MxParser.FuncCallContext ctx);
+	void enterAllocErrorFormat(MxParser.AllocErrorFormatContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code funcCall}
-	 * labeled alternative in {@link MxParser#expression}.
+	 * Exit a parse tree produced by the {@code allocErrorFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
 	 * @param ctx the parse tree
 	 */
-	void exitFuncCall(MxParser.FuncCallContext ctx);
+	void exitAllocErrorFormat(MxParser.AllocErrorFormatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code allocArrayFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
+	 * @param ctx the parse tree
+	 */
+	void enterAllocArrayFormat(MxParser.AllocArrayFormatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code allocArrayFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
+	 * @param ctx the parse tree
+	 */
+	void exitAllocArrayFormat(MxParser.AllocArrayFormatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code allocBaseFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
+	 * @param ctx the parse tree
+	 */
+	void enterAllocBaseFormat(MxParser.AllocBaseFormatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code allocBaseFormat}
+	 * labeled alternative in {@link MxParser#allocFormat}.
+	 * @param ctx the parse tree
+	 */
+	void exitAllocBaseFormat(MxParser.AllocBaseFormatContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MxParser#parameterforcall}.
 	 * @param ctx the parse tree
