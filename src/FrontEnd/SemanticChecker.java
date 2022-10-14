@@ -34,14 +34,15 @@ public class SemanticChecker implements ASTVisitor {
     }
 
     public void visit(RootNode node) {
-        node.elements.forEach(tmp -> {
+        /*node.elements.forEach(tmp -> {
             if (tmp instanceof ClassDefNode)
                 tmp.accept(this);
         });
         node.elements.forEach(tmp -> {
             if (tmp instanceof FuncDefNode || tmp instanceof VarDefStmtNode)
                 tmp.accept(this);
-        });
+        });*/
+        node.elements.forEach(tmp -> tmp.accept(this));
     }
 
     public void visit(VarDefNode node) {
