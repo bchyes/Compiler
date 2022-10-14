@@ -553,7 +553,7 @@ public class MxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_stmt; }
-
+	 
 		public StmtContext() { }
 		public void copyFrom(StmtContext ctx) {
 			super.copyFrom(ctx);
@@ -995,7 +995,7 @@ public class MxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
-
+	 
 		public ExpressionContext() { }
 		public void copyFrom(ExpressionContext ctx) {
 			super.copyFrom(ctx);
@@ -1700,7 +1700,7 @@ public class MxParser extends Parser {
 						}
 						break;
 					}
-					}
+					} 
 				}
 				setState(229);
 				_errHandler.sync(this);
@@ -1724,7 +1724,7 @@ public class MxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_allocFormat; }
-
+	 
 		public AllocFormatContext() { }
 		public void copyFrom(AllocFormatContext ctx) {
 			super.copyFrom(ctx);
@@ -1842,13 +1842,13 @@ public class MxParser extends Parser {
 						setState(233);
 						match(T__9);
 						}
-						}
+						} 
 					}
 					setState(239);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,23,_ctx);
 				}
-				setState(242);
+				setState(242); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1866,11 +1866,11 @@ public class MxParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(244);
+					setState(244); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,24,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
-				setState(250);
+				setState(250); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1890,7 +1890,7 @@ public class MxParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(252);
+					setState(252); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,25,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -1911,7 +1911,7 @@ public class MxParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(259);
+				setState(259); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -1931,7 +1931,7 @@ public class MxParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(261);
+					setState(261); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 				} while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
@@ -1947,7 +1947,7 @@ public class MxParser extends Parser {
 						setState(264);
 						match(T__9);
 						}
-						}
+						} 
 					}
 					setState(269);
 					_errHandler.sync(this);
@@ -2138,7 +2138,7 @@ public class MxParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_vartype; }
-
+	 
 		public VartypeContext() { }
 		public void copyFrom(VartypeContext ctx) {
 			super.copyFrom(ctx);
@@ -2235,7 +2235,7 @@ public class MxParser extends Parser {
 					setState(301);
 					match(T__9);
 					}
-					}
+					} 
 				}
 				setState(306);
 				_errHandler.sync(this);

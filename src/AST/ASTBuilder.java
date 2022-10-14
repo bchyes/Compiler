@@ -4,6 +4,7 @@ import Parser.MxBaseVisitor;
 import Parser.MxParser;
 import Utils.Position;
 import Utils.SemanticError;
+import Utils.SyntaxError;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
     }
 
     public ASTNode visitAllocErrorFormat(MxParser.AllocErrorFormatContext ctx) {
-        throw new SemanticError("Wrong Syntax for array create", new Position(ctx));
+        throw new SyntaxError("Wrong Syntax for array create", new Position(ctx));
     }
 
     public ASTNode visitAllocArrayFormat(MxParser.AllocArrayFormatContext ctx) {

@@ -6,6 +6,7 @@ import FrontEnd.SemanticChecker;
 import Parser.MxLexer;
 import Parser.MxParser;
 import Utils.GlobalScope;
+import Utils.MxErrorListener;
 import Utils.SemanticError;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.CharStreams;
@@ -26,11 +27,11 @@ public class Compiler {
         //PrintStream output = System.out;
         try {
             MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
-            /*lexer.removeErrorListeners();
-            lexer.addErrorListener(new MxErrorListerner());*/
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(new MxErrorListener());
             MxParser parser = new MxParser(new CommonTokenStream(lexer));
-            /*parser.removeErrorListeners();
-            parser.addErrorListener(new MxErrorListerner());*/
+            parser.removeErrorListeners();
+            parser.addErrorListener(new MxErrorListener());
             ParseTree parseTreeRoot = parser.program();
 
             ASTBuilder test = new ASTBuilder();

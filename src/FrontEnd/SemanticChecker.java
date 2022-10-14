@@ -329,10 +329,10 @@ public class SemanticChecker implements ASTVisitor {
                     throw new SemanticError("Type dismatch in Binary Operation2", node.getPos());
                 }
                 if (node.ROperand.exprType.Type.equals("null")) {
-                    /*if (nodeType.Type.equals("void") || nodeType.Type.equals("int") || nodeType.Type.equals("string") || nodeType.toString().equals("bool")) {
+                    /*if (nodeType.Type.equals("void") || nodeType.Type.equals("int") || nodeType.Type.equals("string") || nodeType.Type.equals("bool")) {
                         throw new SemanticError("Null can't be assign to a primitive type", node.getPos());
                     }*/
-                    if (!(nodeType instanceof ArrayTypeNode)) {
+                    if (!(nodeType instanceof ArrayTypeNode) && (nodeType.Type.equals("void") || nodeType.Type.equals("int") || nodeType.Type.equals("string") || nodeType.Type.equals("bool"))) {
                         throw new SemanticError("Null can't assign to a primitive type", node.getPos());
                     }
                 }
@@ -464,7 +464,7 @@ public class SemanticChecker implements ASTVisitor {
             node.loopBody.accept(this);
             cScope = cScope.parent;
         }
-
+        loops--;
     }
 
     @Override
