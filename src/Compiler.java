@@ -12,16 +12,17 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
 public class Compiler {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         String name = "test.mx";
-        InputStream input = new FileInputStream(name);
-        //InputStream input = System.in;
-        PrintStream output = System.out;
+        //InputStream input = new FileInputStream(name);
+        InputStream input = System.in;
+        //PrintStream output = System.out;
         try {
             MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
             /*lexer.removeErrorListeners();
@@ -44,9 +45,9 @@ public class Compiler {
             SemanticChecker semanticChecker = new SemanticChecker(gScope);
             semanticChecker.visit(rt);
 
-            System.out.println("Semantic Run Success");
+            //System.out.println("Semantic Run Success");
         } catch (SemanticError er) {
-            System.err.println(er.getMessage());
+            //System.err.println(er.getMessage());
             throw new RuntimeException();
         }
     }
