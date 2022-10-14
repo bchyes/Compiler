@@ -35,7 +35,7 @@ public class SemanticChecker implements ASTVisitor {
 
     public void visit(RootNode node) {
         node.elements.forEach(tmp -> {
-            if (tmp instanceof ClassDefNode || tmp instanceof VarDefNode)
+            if (tmp instanceof ClassDefNode || tmp instanceof VarDefStmtNode)
                 tmp.accept(this);
         });
         node.elements.forEach(tmp -> {
@@ -160,7 +160,11 @@ public class SemanticChecker implements ASTVisitor {
     @Override
     public void visit(IdentifierExprNode node) {
         TypeNode idType = cScope.fetch_Variable_Type(node.identifier);
-        if (idType == null) throw new SemanticError("Undefined variable " + node.identifier, node.getPos());
+        if (idType == null) {
+            idType = gScope.fetch_Variable_Type(node.identifier);
+            if (idType == null)
+                throw new SemanticError("Undefined variable " + node.identifier, node.getPos());
+        }
         node.exprType = idType;
         node.isAssignable = true;
     }
