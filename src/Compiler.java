@@ -21,8 +21,8 @@ public class Compiler {
 
     public static void main(String[] args) throws IOException {
         String name = "test.mx";
-        InputStream input = new FileInputStream(name);
-        //InputStream input = System.in;
+        //InputStream input = new FileInputStream(name);
+        InputStream input = System.in;
         //PrintStream output = System.out;
         try {
             MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
