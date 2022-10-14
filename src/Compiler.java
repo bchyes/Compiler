@@ -45,9 +45,9 @@ public class Compiler {
             SemanticChecker semanticChecker = new SemanticChecker(gScope);
             semanticChecker.visit(rt);
 
-            System.out.println("Semantic Run Success");
+            //System.out.println("Semantic Run Success");
         } catch (SemanticError er) {
-            System.err.println(er.getMessage());
+            //System.err.println(er.getMessage());
             throw new RuntimeException();
         }
     }
