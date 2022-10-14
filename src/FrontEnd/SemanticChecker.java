@@ -264,7 +264,7 @@ public class SemanticChecker implements ASTVisitor {
             throw new SemanticError("Try to index not Array Type of "/* + ((IdentifierExprNode) node.array).identifier*/, node.getPos());
         }
         node.index.accept(this);
-        if (!node.index.exprType.Type.equals("int")) {
+        if (node.index.exprType instanceof ArrayTypeNode || !node.index.exprType.Type.equals("int")) {
             throw new SemanticError("Array index should be int type", node.getPos());
         }
         if (((ArrayTypeNode) node.array.exprType).dimension == 1) {
@@ -327,6 +327,9 @@ public class SemanticChecker implements ASTVisitor {
                 }
                 if (!nodeType.Type.equals(node.ROperand.exprType.Type) && !node.ROperand.exprType.Type.equals("null")) {
                     throw new SemanticError("Type dismatch in Binary Operation2", node.getPos());
+                }
+                if (nodeType instanceof ArrayTypeNode && node.ROperand.exprType instanceof ArrayTypeNode && ((ArrayTypeNode) nodeType).dimension != ((ArrayTypeNode) node.ROperand.exprType).dimension) {
+                    throw new SemanticError("Assignment with different dimension", node.getPos());
                 }
                 if (node.ROperand.exprType.Type.equals("null")) {
                     /*if (nodeType.Type.equals("void") || nodeType.Type.equals("int") || nodeType.Type.equals("string") || nodeType.Type.equals("bool")) {
@@ -398,8 +401,8 @@ public class SemanticChecker implements ASTVisitor {
                 }
             } else {
                 node.expr.accept(this);
-                if (nowFunc.funcType == null || (!nowFunc.funcType.Type.equals(node.expr.exprType.Type) && !node.expr.exprType.Type.equals("null"))) {
-                    throw new SemanticError("Constructor and no Void function should have the return value", node.getPos());
+                if (nowFunc.funcType == null || (!nowFunc.funcType.Type.equals(node.expr.exprType.Type) && !node.expr.exprType.Type.equals("null")) || (node.expr.exprType instanceof ArrayTypeNode && nowFunc.funcType instanceof ArrayTypeNode && ((ArrayTypeNode) node.expr.exprType).dimension != ((ArrayTypeNode) nowFunc.funcType).dimension)) {
+                    throw new SemanticError("Constructor and no Void function should have the true return value", node.getPos());
                 }
             }
             nowFunc.hasReturn = true;
