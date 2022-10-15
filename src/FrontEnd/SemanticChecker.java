@@ -141,7 +141,7 @@ public class SemanticChecker implements ASTVisitor {
                 throw new SemanticError("Wrong parameter in Calling Lambda Function", node.getPos());
             }
             for (int i = 0; i < node.parameter.size(); i++) {
-                if (node.parameter.get(i).varType.Type.equals(node.list.get(i).exprType.Type)) {
+                if (!node.parameter.get(i).varType.Type.equals(node.list.get(i).exprType.Type)) {
                     throw new SemanticError("Wrong parameter in Calling Lambda Function", node.getPos());
                 }
             }
@@ -413,7 +413,7 @@ public class SemanticChecker implements ASTVisitor {
             } else {
                 node.expr.accept(this);
             }
-            if (nowFunc.ReturnType == null) nowFunc.exprType = node.expr.exprType;
+            if (nowFunc.ReturnType == null) nowFunc.ReturnType = node.expr.exprType;
             else if (nowFunc.ReturnType.Type.equals(node.expr.exprType.Type)) {
                 throw new SemanticError("Lambda Function should have only one type return", node.getPos());
             }
