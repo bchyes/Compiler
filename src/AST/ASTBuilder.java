@@ -131,11 +131,11 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
         ArrayList<ExprNode> arraySize = new ArrayList<ExprNode>();
         ctx.expression().forEach(tmp -> arraySize.add((ExprNode) visit(tmp)));
         int dimension = (ctx.getChildCount() - arraySize.size() - 1) / 2;
-        return new NewExprNode(new TypeNode(ctx.base.getText(),new Position(ctx)), dimension, arraySize, new Position(ctx));
+        return new NewExprNode(new TypeNode(ctx.base.getText(), new Position(ctx)), dimension, arraySize, new Position(ctx));
     }
 
     public ASTNode visitAllocBaseFormat(MxParser.AllocBaseFormatContext ctx) {
-        return new NewExprNode(new TypeNode(ctx.base.getText(),new Position(ctx)), 0, null, new Position(ctx));
+        return new NewExprNode(new TypeNode(ctx.base.getText(), new Position(ctx)), 0, null, new Position(ctx));
     }
 
     public ASTNode visitObjPortion(MxParser.ObjPortionContext ctx) {
@@ -169,7 +169,10 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
                 List.add((ExprNode) visit(ele));
             }
         }
-        return new LambdaExprNode(parameter, List, (BlockStmtNode) visit(ctx.block()), new Position(ctx));
+        boolean ref;
+        if (ctx.ref != null) ref = true;
+        else ref = false;
+        return new LambdaExprNode(parameter, List, (BlockStmtNode) visit(ctx.block()), new Position(ctx), ref);
     }
 
     public ASTNode visitIfStmt(MxParser.IfStmtContext ctx) {

@@ -1100,6 +1100,7 @@ public class MxParser extends Parser {
 		}
 	}
 	public static class LambdaExprContext extends ExpressionContext {
+		public Token ref;
 		public BlockContext block() {
 			return getRuleContext(BlockContext.class,0);
 		}
@@ -1393,7 +1394,7 @@ public class MxParser extends Parser {
 				if (_la==T__27) {
 					{
 					setState(157);
-					match(T__27);
+					((LambdaExprContext)_localctx).ref = match(T__27);
 					}
 				}
 

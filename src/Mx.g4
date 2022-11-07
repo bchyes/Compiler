@@ -46,7 +46,7 @@ expression://((ID('['(INT|ID)']')*('.'ID('('(parameterforcall)?')'))?)|INT) (OPE
           |operand1=expression op='||' operand2=expression                           #binaryExpr
           |<assoc=right>operand1=expression op='=' operand2=expression               #binaryExpr
           |'this'                                                                    #objPointer
-          |'['('&')?']' lambdaparameter? '->' block '('parameterforcall?')'          #lambdaExpr
+          |'[' ref='&'? ']' lambdaparameter? '->' block '('parameterforcall?')'      #lambdaExpr
           ;
 //functionuse:ID'('(functionuse|parameterforcall)?')';
 //functionuse:'print('expression')'|'println('expression')'|'printInt('expression')'|'printlnInt('expression')'|'getString('expression')'|'getInt('expression')'|'toString('expression')';

@@ -124,7 +124,14 @@ public class SemanticChecker implements ASTVisitor {
 
     @Override
     public void visit(LambdaExprNode node) {
-        cScope = new Scope(cScope);
+        Scope tmp_scope;
+        if (node.ref) {
+            tmp_scope = cScope;
+            cScope = new Scope(cScope);
+        } else {
+            tmp_scope = cScope;
+            cScope = new Scope(null);
+        }
         FuncStation.push(node);
         if (node.parameter != null) {
             node.parameter.forEach(tmp -> tmp.accept(this));
@@ -155,7 +162,7 @@ public class SemanticChecker implements ASTVisitor {
         node.exprType = node.ReturnType;
         node.isAssignable = false;
         FuncStation.pop();
-        cScope = cScope.parent;
+        cScope = tmp_scope;
     }
 
     @Override

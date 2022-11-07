@@ -3,6 +3,8 @@ import AST.RootNode;
 import FrontEnd.BuiltInitiator;
 import FrontEnd.PreProcessor;
 import FrontEnd.SemanticChecker;
+//import MiddleEnd.IRBuilder;
+//import MiddleEnd.IRModule;
 import Parser.MxLexer;
 import Parser.MxParser;
 import Utils.GlobalScope;
@@ -22,8 +24,8 @@ public class Compiler {
 
     public static void main(String[] args) throws IOException {
         String name = "test.mx";
-        //InputStream input = new FileInputStream(name);
-        InputStream input = System.in;
+        InputStream input = new FileInputStream(name);
+        //InputStream input = System.in;
         //PrintStream output = System.out;
         try {
             MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
@@ -47,7 +49,11 @@ public class Compiler {
             SemanticChecker semanticChecker = new SemanticChecker(gScope);
             semanticChecker.visit(rt);
 
-            //System.out.println("Semantic Run Success");
+            System.out.println("Semantic Run Success");
+            /*IRModule module = new IRModule();
+            IRBuilder irb = new IRBuilder(module, gScope);
+            irb.visit(rt);*/
+
         } catch (SemanticError er) {
             System.err.println(er.getMessage());
             throw new RuntimeException();
