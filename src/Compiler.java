@@ -31,8 +31,8 @@ public class Compiler {
 
     public static void main(String[] args) throws IOException {
         String name = "e1.mx";
-        InputStream input = new FileInputStream(name);
-        //InputStream input = System.in;
+        //InputStream input = new FileInputStream(name);
+        InputStream input = System.in;
         //PrintStream output = System.out;
         PrintStream os = new PrintStream("output.s");
         try {
