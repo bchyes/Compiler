@@ -1,10 +1,16 @@
 import AST.ASTBuilder;
 import AST.RootNode;
+import BackEnd.BuiltinPrinter;
+import BackEnd.Infrastructure.ASMBuilder;
+import BackEnd.Infrastructure.ASMModule;
+import BackEnd.RegAllocation.GraphColor;
 import FrontEnd.BuiltInitiator;
 import FrontEnd.PreProcessor;
 import FrontEnd.SemanticChecker;
 //import MiddleEnd.IRBuilder;
 //import MiddleEnd.IRModule;
+import MiddleEnd.IRBuilder;
+import MiddleEnd.IRModule;
 import Parser.MxLexer;
 import Parser.MxParser;
 import Utils.GlobalScope;
@@ -18,15 +24,17 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.List;
 
 public class Compiler {
 
     public static void main(String[] args) throws IOException {
-        String name = "test.mx";
-        InputStream input = new FileInputStream(name);
-        //InputStream input = System.in;
+        String name = "e1.mx";
+        //InputStream input = new FileInputStream(name);
+        InputStream input = System.in;
         //PrintStream output = System.out;
+        PrintStream os = new PrintStream("output.s");
         try {
             MxLexer lexer = new MxLexer(CharStreams.fromStream(input));
             lexer.removeErrorListeners();
@@ -49,10 +57,19 @@ public class Compiler {
             SemanticChecker semanticChecker = new SemanticChecker(gScope);
             semanticChecker.visit(rt);
 
-            System.out.println("Semantic Run Success");
-            /*IRModule module = new IRModule();
+            //System.out.println("Semantic Run Success");
+            IRModule module = new IRModule();
             IRBuilder irb = new IRBuilder(module, gScope);
-            irb.visit(rt);*/
+            irb.visit(rt);
+            irb.processGlobalInit();
+            //System.out.println(module);
+
+            ASMBuilder asmB = new ASMBuilder();
+            asmB.visit(module);
+            //os.println(asmB.output.printASM());
+            GraphColor regAlloc = new GraphColor(asmB.output);
+            os.println(asmB.output.printASM());
+            new BuiltinPrinter().printBuiltin();
 
         } catch (SemanticError er) {
             System.err.println(er.getMessage());

@@ -23,4 +23,29 @@ public class StructType extends IRType {
         indexTable.put(identifier, count++);
         typeList.add(type);
     }
+
+    public int getOffset(int index) {
+        int ans = 0;
+        for (int i = 0; i < index; i++) {
+            ans += typeList.get(i).byteSize();
+        }
+        return ans;
+    }
+
+    @Override
+    public int byteSize() {
+        int total = 0;
+        for (IRType ty : typeTable.values()) total += ty.byteSize();
+        return total;
+    }
+
+    @Override
+    public boolean isEqual(IRType other) {
+        return (other instanceof StructType) && ((StructType) other).name.equals(name);
+    }
+
+    @Override
+    public String toString() {
+        return "%" + name;
+    }
 }

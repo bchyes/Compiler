@@ -52,9 +52,9 @@ public class PreProcessor implements ASTVisitor {
                 }
                 forClass.define_Function(func.funcName, func);
             });
-            if (!this.gScope.contains_Function(node.className)){
+            /*if (!this.gScope.contains_Function(node.className)){
                 this.gScope.define_Function(node.className,new FuncDefNode(new TypeNode(node.className,new Position(-1,-1)),node.className,null,null,new Position(-1,-1)));
-            }
+            }*/
             this.gScope.define_Class(node.className, forClass);
         }
     }

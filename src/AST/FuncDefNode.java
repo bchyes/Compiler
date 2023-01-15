@@ -11,6 +11,8 @@ public class FuncDefNode extends ASTNode {
     public BlockStmtNode funcBody;
     public boolean hasReturn;
 
+    public boolean isBuiltin;
+
     public FuncDefNode(TypeNode funcType_, String funcName_, ArrayList<VarDefNode> parameter_, BlockStmtNode funcBody_, Position pos_) {
         super(pos_);
         this.funcType = funcType_;
@@ -18,6 +20,12 @@ public class FuncDefNode extends ASTNode {
         this.parameter = parameter_;
         this.funcBody = funcBody_;
         this.hasReturn = false;
+        this.isBuiltin = false;
+    }
+
+    public FuncDefNode setBuiltin() {
+        this.isBuiltin = true;
+        return this;
     }
 
     @Override

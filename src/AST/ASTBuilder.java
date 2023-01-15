@@ -50,7 +50,7 @@ public class ASTBuilder extends MxBaseVisitor<ASTNode> {
         } else if (ctx.INT_C() != null) {
             return new IntConstantExprNode(Integer.parseInt(ctx.INT_C().getText()), new Position(ctx));
         } else if (ctx.STRING_C() != null) {
-            return new StringConstantExprNode(new Position(ctx));
+            return new StringConstantExprNode(ctx.getText(),new Position(ctx));
         } else return null;
     }
 

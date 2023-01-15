@@ -1,6 +1,8 @@
 package MiddleEnd.TypeSystem;
 
 public abstract class IRType {
+    public abstract int byteSize();
+    public abstract boolean isEqual(IRType other);
     public IRType dePointed() {
         if (this instanceof PointerType) {
             if (((PointerType) this).dimSize == 1) {
