@@ -63,7 +63,7 @@ public class ASMBuilder implements IRVisitor {
         });
         node.globalDefList.forEach(tmp -> {
             tmp.ASMOperand = new GlobalVar(tmp.name);
-            output.globalVars.add((GlobalVar)tmp.ASMOperand);
+            output.globalVars.add((GlobalVar)tmp.ASMOperand);//
         });
         node.functionList.forEach(tmp -> {
             tmp.ASMOperand = new ASMFunction(tmp.name);
@@ -100,7 +100,7 @@ public class ASMBuilder implements IRVisitor {
                 if (func.name.equals("_GLOBAL_")) gPtr = func;
             }
             assert gPtr != null;
-            for (IRFunction func : node.globalInitList) {
+            for (IRFunction func : node.functionList) {//!
                 if (func.name.equals("main")) {
                     func.entryBlock().Instructions.addFirst(new Call(gPtr, null));
                 }
