@@ -47,9 +47,9 @@ public class PreProcessor implements ASTVisitor {
                 if (forClass.contains_Function(func.funcName)) {
                     throw new SemanticError("Duplicate definition of function " + func.funcName + " in Class " + node.className, node.getPos());
                 }
-                if (func.funcName.equals(node.className)){
+                /*if (func.funcName.equals(node.className)){
                     this.gScope.define_Function(node.className,func);
-                }
+                }*/ //??
                 forClass.define_Function(func.funcName, func);
             });
             /*if (!this.gScope.contains_Function(node.className)){

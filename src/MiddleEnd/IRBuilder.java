@@ -85,8 +85,8 @@ public class IRBuilder implements ASTVisitor {
                         });
                     }
                     classScope.Function_Table.forEach((funcName, funcNode) -> {
-                        //IRType returnType = (funcNode.funcType == null) ? new VoidType() : getType(funcNode.funcType);
-                        IRType returnType = getType(funcNode.funcType);
+                        IRType returnType = (funcNode.funcType == null) ? new VoidType() : getType(funcNode.funcType); //constructor
+                        //IRType returnType = getType(funcNode.funcType);
                         FunctionType funcType = new FunctionType(returnType);
                         IRType argType = new PointerType(pendingType);//
                         funcType.addParameters(argType, "_this");//
