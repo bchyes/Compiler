@@ -1,9 +1,6 @@
 package MiddleEnd;
 
-import MiddleEnd.IRoperand.BoolConstant;
-import MiddleEnd.IRoperand.IntConstant;
-import MiddleEnd.IRoperand.NullConstant;
-import MiddleEnd.IRoperand.StringConstant;
+import MiddleEnd.IRoperand.*;
 import MiddleEnd.Instruction.*;
 
 public interface IRVisitor {
@@ -46,4 +43,6 @@ public interface IRVisitor {
     void visit(Trunc node);
 
     void visit(Zext node);
+
+    void visit(Temporary node);
 }

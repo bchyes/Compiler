@@ -11,6 +11,7 @@ import FrontEnd.SemanticChecker;
 //import MiddleEnd.IRModule;
 import MiddleEnd.IRBuilder;
 import MiddleEnd.IRModule;
+import Optimization.Mem2Reg;
 import Parser.MxLexer;
 import Parser.MxParser;
 import Utils.GlobalScope;
@@ -30,7 +31,7 @@ import java.util.List;
 public class Compiler {
 
     public static void main(String[] args) throws IOException {
-        String name = "e1.mx";
+        String name = "test.mx";
         //InputStream input = new FileInputStream(name);
         InputStream input = System.in;
         //PrintStream output = System.out;
@@ -46,7 +47,7 @@ public class Compiler {
 
             ASTBuilder test = new ASTBuilder();
             RootNode rt = (RootNode) test.visit(parseTreeRoot);
-            //System.out.println(rt);
+            System.out.println(rt);
 
             GlobalScope gScope = new GlobalScope(null);
             BuiltInitiator initiator = new BuiltInitiator();
@@ -63,10 +64,11 @@ public class Compiler {
             irb.visit(rt);
             irb.processGlobalInit();
             //System.out.println(module);
+            Mem2Reg opt1 = new Mem2Reg(module);
 
             ASMBuilder asmB = new ASMBuilder();
             asmB.visit(module);
-            //os.println(asmB.output.printASM());
+            System.out.println(asmB.output.printASM());
             GraphColor regAlloc = new GraphColor(asmB.output);
             os.println(asmB.output.printASM());
             new BuiltinPrinter().printBuiltin();
