@@ -8,10 +8,7 @@ import MiddleEnd.IRBasicBlock;
 import MiddleEnd.IRFunction;
 import MiddleEnd.IRModule;
 import MiddleEnd.IRVisitor;
-import MiddleEnd.IRoperand.BoolConstant;
-import MiddleEnd.IRoperand.IntConstant;
-import MiddleEnd.IRoperand.NullConstant;
-import MiddleEnd.IRoperand.StringConstant;
+import MiddleEnd.IRoperand.*;
 import MiddleEnd.Instruction.*;
 import MiddleEnd.TypeSystem.*;
 
@@ -185,6 +182,10 @@ public class ASMBuilder implements IRVisitor {
     public void visit(Bitcast node) {
         recurDown(node.getOperand(0));
         node.ASMOperand = node.getOperand(0).ASMOperand;
+    }
+
+    public void visit(Temporary node) {
+        node.ASMOperand = new VirtualRegister(curFunction.virtualIndex++);
     }
 
     @Override
